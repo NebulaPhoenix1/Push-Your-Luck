@@ -16,6 +16,7 @@ public class randomNumber : MonoBehaviour
     public TMP_InputField inputtedText;
     public AudioSource click;
     public void GetIntFromInput()
+       
     {
         string Input = inputtedText.text ;
         PlayerNumb = int.Parse(Input);
@@ -50,8 +51,8 @@ public class randomNumber : MonoBehaviour
         if((PlayerNumb ==selectedNo)&& Cancheck == true)
         {
             Cancheck = false;
-            // button flashloop
-            selectedNo = Random.Range(minVal, maxVal);
+          buttonFlash.flash = true;
+          selectedNo = Random.Range(minVal, maxVal);
             //Debug.Log(selectedNo);
             question.SetText("Pick a number between " + minVal + " and " + (maxVal - 1)); //(maxVal-1) as i believe random ran
           
