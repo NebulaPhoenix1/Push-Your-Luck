@@ -9,8 +9,8 @@ public class buttonFlash : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Field = GetComponent<button>();
-        Field.NormalColor
+        button = GetComponent<Button>();
+        button.NormalColor;
          
     }
 
@@ -19,7 +19,7 @@ public class buttonFlash : MonoBehaviour
     {
         if (flash == true)
         {
-            StartCoroutine(Flash)
+            StartCoroutine(Flash);
         }
     }
     private IEnumerator Flash()
