@@ -1,45 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class buttonFlash : MonoBehaviour
 {
-    public bool flash = false;
-    private Button button;
+    public bool Canflash = false;
+    public bool CanflashRed = false;
+    private Image button;
+    public randomNumber NumbGen;
     // Start is called before the first frame update
     void Start()
     {
-        button = GetComponent<Button>();
-        button.NormalColor;
-         
+        button = GetComponent<Image>();
+        NumbGen = GameObject.Find("Input").GetComponent<randomNumber>();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator Flash()// flashes green
     {
-        if (flash == true)
-        {
-            StartCoroutine(Flash);
-        }
-    }
-    private IEnumerator Flash()
-    {
-        Color normalColor = button.colors.normalColor;
+        Canflash = false ;
+        NumbGen.Canpress = false;//disables button
+        Color normalColor = Color.white;
         Color flashColor = Color.green;
 
         for (int i = 0; i < 5; i++)
         {
             // Flash the button with the new color
-            button.image.color = flashColor;
-            yield return new WaitForSeconds(0.2f);
+            button.color = flashColor;
+            yield return new WaitForSeconds(1);
 
             // Return the button to its normal color
-            button.image.color = normalColor;
-            yield return new WaitForSeconds(0.2f);
+            button.color = normalColor;
+            yield return new WaitForSeconds(1);
         }
-
-
-
+        NumbGen.Canpress = true;// renables button
     }
+    private IEnumerator FlashRed()//flashes red
+    {
+        CanflashRed = false;
+        NumbGen.Canpress = false;//disables button
+        Color normalColor = Color.white;
+        Color flashColor = Color.red;
 
+        for (int i = 0; i < 5; i++)
+        {
+            // Flash the button with the new color
+            button.color = flashColor;
+            yield return new WaitForSeconds(1);
+
+            // Return the button to its normal color
+            button.color = normalColor;
+            yield return new WaitForSeconds(1);
+        }
+        NumbGen.Canpress = true;// renables button
+    }
+    // Update is called once per frame
+    void Update()
+    {     //checks which colour to flash
+        if (Canflash == true)
+        {
+            StartCoroutine(Flash());
+           // Debug.Log("trigger"); 
+        }
+        if (CanflashRed == true)
+        {
+            StartCoroutine(FlashRed());
+           // Debug.Log("trigger");
+        }
+    }
 }
