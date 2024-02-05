@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.SocialPlatforms.Impl;
+using JetBrains.Annotations;
+
+
 
 public class randomNumber : MonoBehaviour
 {
@@ -18,7 +23,12 @@ public class randomNumber : MonoBehaviour
     public buttonFlash Button;
     private bool test;
     public bool Canpress =  true;
-     
+
+    //Score Variables
+    private int score = 0; //Player's score
+    private int scoreGain = 1; //How much score is gained per correct guess
+    public TMP_Text scoreUI;
+
     public void GetIntFromInput()
     {
         string Input = inputtedText.text ;
@@ -30,12 +40,29 @@ public class randomNumber : MonoBehaviour
     {
         if (Canpress == true)//prevents the player from pressing the button in quick seccesion
         {
-            click.Play();
+            //click.Play();
             Cancheck = true;
             CanLoad = true;
             //Button.CanflashRed = true;//debug
-          // test = Button.CanflashRed;//debug
-                                      //Debug.Log (test);
+            // test = Button.CanflashRed;//debug
+            Debug.Log(inputtedText.text);
+            //Check for win!
+            //If player guess == computer's number...
+            string strSelectedNo = selectedNo.ToString(); //Converts to string as we cant compare int and string
+            if (inputtedText.text == strSelectedNo)
+            {
+                maxVal += 1;
+                selectedNo = Random.Range(minVal, maxVal);
+                question.SetText("Pick a number between " + minVal + " and " + (maxVal - 1));
+                //Increase score, increment score gain and update UI text
+                score += scoreGain; 
+                scoreGain++;
+                scoreUI.SetText("Score: " + score);
+            }
+            else
+            {
+                SceneManager.LoadScene("game");
+            }
         }
     }   
     private void Start()
@@ -43,6 +70,7 @@ public class randomNumber : MonoBehaviour
         Button = GameObject.Find("Button").GetComponent<buttonFlash>();//finds flas script
        //Debug.Log (Button);
         Button.GetComponent<buttonFlash>();
+        selectedNo = Random.Range(minVal, maxVal);
 
     }
     void Awake()
@@ -50,7 +78,7 @@ public class randomNumber : MonoBehaviour
         selectedNo = Random.Range(minVal, maxVal);
         //Debug.Log(selectedNo);
         question.SetText("Pick a number between " + minVal + " and " + (maxVal-1)); //(maxVal-1) as i believe random range is non inclusive of max number
-        
+        scoreUI.SetText("Score: " + score);
     }
     void Update()
     {
