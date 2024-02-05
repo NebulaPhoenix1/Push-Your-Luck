@@ -40,7 +40,7 @@ public class randomNumber : MonoBehaviour
     {
         if (Canpress == true)//prevents the player from pressing the button in quick seccesion
         {
-            //click.Play();
+            //click.Play(); temp commented out as it being null broke everything! needs to be uncommented when we have sounds.
             Cancheck = true;
             CanLoad = true;
             //Button.CanflashRed = true;//debug
@@ -61,7 +61,7 @@ public class randomNumber : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("game");
+                SceneManager.LoadScene("menu");
             }
         }
     }   
