@@ -15,7 +15,19 @@ public class buttonFlash : MonoBehaviour
         NumbGen = GameObject.Find("Input").GetComponent<randomNumber>();
 
     }
-
+ void Update()
+    {     //checks which colour to flash
+        if (Canflash == true)
+        {
+            StartCoroutine(Flash());
+           // Debug.Log("trigger"); 
+        }
+        if (CanflashRed == true)
+        {
+            StartCoroutine(FlashRed());
+           // Debug.Log("trigger");
+        }
+    }
     private IEnumerator Flash()// flashes green
     {
         Canflash = false ;
@@ -33,7 +45,8 @@ public class buttonFlash : MonoBehaviour
             button.color = normalColor;
             yield return new WaitForSeconds(1);
         }
-        NumbGen.Canpress = true;// renables button
+        NumbGen.Canpress = true;
+        NumbGen.CanLoad = true;// renables button
     }
     private IEnumerator FlashRed()//flashes red
     {
@@ -52,20 +65,9 @@ public class buttonFlash : MonoBehaviour
             button.color = normalColor;
             yield return new WaitForSeconds(1);
         }
-        NumbGen.Canpress = true;// renables button
+        NumbGen.Canpress = true;
+        NumbGen.CanLoad = true;// renables button
     }
     // Update is called once per frame
-    void Update()
-    {     //checks which colour to flash
-        if (Canflash == true)
-        {
-            StartCoroutine(Flash());
-           // Debug.Log("trigger"); 
-        }
-        if (CanflashRed == true)
-        {
-            StartCoroutine(FlashRed());
-           // Debug.Log("trigger");
-        }
-    }
+   
 }

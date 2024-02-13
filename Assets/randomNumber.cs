@@ -16,7 +16,7 @@ public class randomNumber : MonoBehaviour
     private int selectedNo;//coms number
     private int PlayerNumb;
     private bool Cancheck ;
-    private bool CanLoad = false ;
+    public bool CanLoad = false ;
     public TMP_Text question;
     public TMP_InputField inputtedText;
     public AudioSource click;
@@ -33,7 +33,8 @@ public class randomNumber : MonoBehaviour
     {
         string Input = inputtedText.text ;
         PlayerNumb = int.Parse(Input);
-        Debug.Log(PlayerNumb);
+        string strSelectedNo = selectedNo.ToString();
+       // Debug.Log(PlayerNumb);
 
     }
     public void OnButtonPress()
@@ -42,27 +43,14 @@ public class randomNumber : MonoBehaviour
         {
             //click.Play(); temp commented out as it being null broke everything! needs to be uncommented when we have sounds.
             Cancheck = true;
-            CanLoad = true;
+           
             //Button.CanflashRed = true;//debug
             // test = Button.CanflashRed;//debug
             Debug.Log(inputtedText.text);
             //Check for win!
             //If player guess == computer's number...
-            string strSelectedNo = selectedNo.ToString(); //Converts to string as we cant compare int and string
-            if (inputtedText.text == strSelectedNo)
-            {
-                maxVal += 1;
-                selectedNo = Random.Range(minVal, maxVal);
-                question.SetText("Pick a number between " + minVal + " and " + (maxVal - 1));
-                //Increase score, increment score gain and update UI text
-                score += scoreGain; 
-                scoreGain++;
-                scoreUI.SetText("Score: " + score);
-            }
-            else
-            {
-                SceneManager.LoadScene("menu");
-            }
+             //Converts to string as we cant compare int and string
+            
         }
     }   
     private void Start()
@@ -71,39 +59,40 @@ public class randomNumber : MonoBehaviour
        //Debug.Log (Button);
         Button.GetComponent<buttonFlash>();
         selectedNo = Random.Range(minVal, maxVal);
-
-    }
-    void Awake()
-    {
-        selectedNo = Random.Range(minVal, maxVal);
-        //Debug.Log(selectedNo);
         question.SetText("Pick a number between " + minVal + " and " + (maxVal-1)); //(maxVal-1) as i believe random range is non inclusive of max number
         scoreUI.SetText("Score: " + score);
+
     }
+    
     void Update()
     {
         if ((PlayerNumb == selectedNo) && Cancheck == true)//match flash green
         {
+            
             Cancheck = false;
-            Button.CanflashRed = true;//starts flash in buttonFlash script
+            Button.Canflash = true;//starts flash in buttonFlash script
             
             //Debug.Log(selectedNo);
-            if (!click.isPlaying && CanLoad)
+            if (CanLoad)
             {
-
-              maxVal += maxVal + 1;
-              selectedNo = Random.Range(minVal, maxVal);
-              question.SetText("Pick a number between " + minVal + " and " + (maxVal - 1)); //(maxVal-1) as i believe random ran
+                score += scoreGain;
+                scoreGain++;
+                scoreUI.SetText("Score: " + score);
+                maxVal += 1;
+                selectedNo = Random.Range(minVal, maxVal);
+                question.SetText("Pick a number between " + minVal + " and " + (maxVal - 1)); //(maxVal-1) as i believe random ran
+                CanLoad = false;
             }
         }
-        else if ((PlayerNumb! == selectedNo) && Cancheck == true)// no match flash red
+        else if ((PlayerNumb != selectedNo) && Cancheck == true)// no match flash red
         {
             Cancheck = false;
             Button.CanflashRed = true;//starts redflash in buttonFlash script
             //buttonflash loop
-            if (!click.isPlaying && CanLoad)
+            if (CanLoad == true)
             {
-                SceneManager.LoadScene("currentscene");//change to scene
+                SceneManager.LoadScene("menu");//change to scene
+                CanLoad = false;
 
             }
         }
