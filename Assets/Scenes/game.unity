@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 81237587}
   - component: {fileID: 81237590}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,9 +371,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 81237585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2508f889b29b7aa4588c42fa7e054bc5, type: 3}
+  m_Script: {fileID: 11500000, guid: ce9a0912531766d4f94d034960a87671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Canflash: 0
+  CanflashRed: 0
+  NumbGen: {fileID: 1046322552}
 --- !u!1 &700771055
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa68dd228c0707449376e0aa07076cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanLoad: 0
   question: {fileID: 700771057}
   inputtedText: {fileID: 931652555}
   click: {fileID: 0}
@@ -824,12 +828,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa68dd228c0707449376e0aa07076cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanLoad: 0
   question: {fileID: 700771057}
-  inputtedText: {fileID: 0}
+  inputtedText: {fileID: 931652555}
   click: {fileID: 0}
-  Button: {fileID: 0}
+  Button: {fileID: 81237590}
   Canpress: 1
-  scoreUI: {fileID: 0}
+  scoreUI: {fileID: 1309040988}
 --- !u!4 &1046322553
 Transform:
   m_ObjectHideFlags: 0
